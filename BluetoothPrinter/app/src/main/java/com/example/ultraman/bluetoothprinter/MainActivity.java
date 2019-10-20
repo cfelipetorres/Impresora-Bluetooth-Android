@@ -154,7 +154,7 @@ public class MainActivity extends Activity implements Runnable {
                     @Override
                     public void run() {
 
-                        p2(); //call function!
+                        //p2(); //call function!
 
                         printstat = 1;
                     }
@@ -265,106 +265,24 @@ public class MainActivity extends Activity implements Runnable {
                 try {
                     OutputStream os = mBluetoothSocket
                             .getOutputStream();
-                    String header = "";
-                    String he = "";
-                    String header2 = "";
-                    String BILL = "";
-                    String vio = "";
-                    String header3 = "";
-                    String mvdtail = "";
-                    String header4 = "" ;
-                    String offname = "";
-                    String copy = "";
-                    String checktop_status = "";
-
-                    he = "      SAMPLE PRINT\n";
-                    he = he +"********************************\n\n";
-
-                    header =  "CUSTOMER DETAILS:\n";
-                    BILL = customer_dtl.getText().toString()+"\n";
-                    BILL = BILL
-                            + "================================\n";
-                    header2= "ORDER DETAILS:\n";
-                    vio = order_detail.getText().toString()+"\n";
-                    vio = vio
-                            + "================================\n";
-                    header3 = "TOTAL PRICE:\n";
-                    mvdtail = total_price.getText().toString()+"\n";
-                    mvdtail = mvdtail
-                            + "================================\n";
-
-                    header4 = "AGENT DETAILS:\n";
-                    offname = agent_detail.getText().toString()+"\n";
-                    offname = offname
-                            + "--------------------------------\n";
-                    copy = "-Customer's Copy\n";
-
-
-
-
-                    os.write(he.getBytes());
-                    os.write(header.getBytes());
-                    os.write(BILL.getBytes());
-                    os.write(header2.getBytes());
-                    os.write(vio.getBytes());
-                    os.write(header3.getBytes());
-                    os.write(mvdtail.getBytes());
-                    os.write(header4.getBytes());
-                    os.write(offname.getBytes());
-                    os.write(checktop_status.getBytes());
-                    os.write(copy.getBytes());
-//------------------------------------------------
 
                     EscPos escpos;
                     escpos = new EscPos(os);
-
+                    escpos.setCharacterCodeTable(EscPos.CharacterCodeTable.ISO8859_15_Latin9);
                     Style title = new Style()
-                            .setFontSize(Style.FontSize._2, Style.FontSize._2)
+                            .setFontSize(Style.FontSize._3, Style.FontSize._3)
+                            .setColorMode(Style.ColorMode.WhiteOnBlack)
                             .setJustification(EscPosConst.Justification.Center);
-                    escpos.writeLF(title, "PDF 417");
-                    escpos.feed(2);
+                    escpos.write(title, "PDF 417 Tamaño: "+order_detail.getText().toString());
+                    escpos.feed(1);
                     PDF417 pdf417 = new PDF417();
-
-                    escpos.writeLF("pdf417 default options");
-                    escpos.feed(2);
-                    escpos.write(pdf417, order_detail.getText().toString());
-                    escpos.feed(3);
-
-                    escpos.writeLF("pdf417 height 8");
-                    escpos.feed(2);
-                    pdf417.setHeight(8);
+                    int altura = Integer.parseInt(order_detail.getText().toString());
+                    pdf417.setHeight(altura);
                     escpos.write(pdf417, customer_dtl.getText().toString());
-                    escpos.feed(3);
-
-                    escpos.writeLF("pdf417 error level 4");
                     escpos.feed(2);
-                    pdf417 = new PDF417().setErrorLevel(PDF417.PDF417ErrorLevel._4);
-                    escpos.write(pdf417, total_price.getText().toString());
-                    escpos.feed(3);
-
-                    escpos.feed(5);
                     escpos.cut(EscPos.CutMode.FULL);
-
                     escpos.close();
 
-//_-----------------------------------
-                    //This is printer specific code you can comment ==== > Start
-
-                    // Setting height
-                    int gs = 29;
-                    os.write(intToByteArray(gs));
-                    int h = 104;
-                    os.write(intToByteArray(h));
-                    int n = 162;
-                    os.write(intToByteArray(n));
-
-                    // Setting Width
-                    int gs_width = 29;
-                    os.write(intToByteArray(gs_width));
-                    int w = 119;
-                    os.write(intToByteArray(w));
-                    int n_width = 2;
-                    os.write(intToByteArray(n_width));
 
 
                 } catch (Exception e) {
