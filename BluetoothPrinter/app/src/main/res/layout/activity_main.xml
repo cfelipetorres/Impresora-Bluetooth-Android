@@ -74,7 +74,7 @@
                     android:paddingBottom="5dp"
                     android:paddingLeft="5dp"
                     android:paddingTop="5dp"
-                    android:text="CUSTOMER DETAILS"
+                    android:text="Texto PDF 417"
                     android:textAlignment="center"
                     android:textColor="#ffffff"
                     android:textSize="24dp"
@@ -106,7 +106,8 @@
                     android:paddingBottom="5dp"
                     android:paddingLeft="5dp"
                     android:paddingTop="5dp"
-                    android:text="ORDER SUMMARY"
+                    android:text="Altura PDF 417 (Máx 8)
+"
                     android:textAlignment="center"
                     android:textColor="#ffffff"
                     android:textSize="24dp"
